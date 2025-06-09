@@ -15,7 +15,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-md border-b border-blue-200">
+    <header className="fixed w-full top-0 z-50 bg-blue-900/20 backdrop-blur-md border-b border-blue-300/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -25,7 +25,7 @@ const Header = () => {
               alt="JH Services Logo" 
               className="h-10 w-10"
             />
-            <span className="text-xl font-bold text-blue-gradient">JH - Services</span>
+            <span className="text-xl font-bold text-white">JH - Services</span>
           </div>
 
           {/* Desktop Navigation */}
@@ -34,7 +34,7 @@ const Header = () => {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
+                className="text-white/90 hover:text-white transition-colors duration-200 font-medium"
               >
                 {item.label}
               </a>
@@ -54,6 +54,7 @@ const Header = () => {
               variant="ghost"
               size="sm"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-white hover:bg-white/10"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -63,12 +64,12 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden animate-fade-in-up">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-blue-200">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-blue-900/90 backdrop-blur-md border-t border-blue-300/30">
               {navItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="block px-3 py-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                  className="block px-3 py-2 text-white/90 hover:text-white transition-colors duration-200"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
