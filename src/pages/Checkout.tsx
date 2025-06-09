@@ -1,10 +1,13 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, CreditCard, Smartphone, Copy, Check } from "lucide-react";
+import { ArrowLeft, CreditCard, Smartphone, Copy, Check, Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 
 const Checkout = () => {
@@ -18,6 +21,11 @@ const Checkout = () => {
   
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
   const [copiedField, setCopiedField] = useState('');
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [proofFile, setProofFile] = useState<File | null>(null);
+  const [customerName, setCustomerName] = useState('');
+  const [contactInfo, setContactInfo] = useState('');
+  const [countryCode, setCountryCode] = useState('+58');
 
   useEffect(() => {
     if (!planId || !planName || !planPrice) {
@@ -39,6 +47,20 @@ const Checkout = () => {
       icon: <CreditCard className="h-6 w-6" />,
       description: 'Transferencia tradicional',
       popular: false
+    },
+    {
+      id: 'zinli',
+      name: 'Zinli',
+      icon: <CreditCard className="h-6 w-6" />,
+      description: 'Pago mediante Zinli',
+      popular: false
+    },
+    {
+      id: 'binance',
+      name: 'Binance',
+      icon: <CreditCard className="h-6 w-6" />,
+      description: 'Pago mediante Binance',
+      popular: false
     }
   ];
 
@@ -50,10 +72,20 @@ const Checkout = () => {
   };
 
   const transferenciaBancaria = {
-    banco: "Banco de Venezuela",
-    numeroCuenta: "0102-0000-00-0000000000",
+    banco: "Banco Nacional",
+    numeroCuenta: "0123-4567-8901-2345",
     cedulaRif: "J-12345678-9",
     titular: "JH Services C.A."
+  };
+
+  const zinliData = {
+    correo: "saviel927@gmail.com",
+    titular: "JH Services"
+  };
+
+  const binanceData = {
+    id: "123456789",
+    titular: "JH Services"
   };
 
   const copyToClipboard = (text: string, field: string) => {
@@ -67,11 +99,58 @@ const Checkout = () => {
   };
 
   const handleConfirmPayment = () => {
+    setShowConfirmModal(true);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setProofFile(e.target.files[0]);
+    }
+  };
+
+  const handleSubmitProof = () => {
+    if (!proofFile || !customerName || !contactInfo) {
+      toast({
+        title: "Error",
+        description: "Por favor completa todos los campos y sube el comprobante",
+        variant: "destructive"
+      });
+      return;
+    }
+
     toast({
-      title: "Pago Procesado",
-      description: "Tu solicitud ha sido enviada. Te contactaremos pronto para confirmar el pago.",
+      title: "Comprobante Enviado",
+      description: "Tu comprobante ha sido enviado exitosamente. Te contactaremos pronto para confirmar el pago.",
     });
+    
+    setShowConfirmModal(false);
     navigate('/');
+  };
+
+  const renderPaymentData = (data: any, type: string) => {
+    return Object.entries(data).map(([key, value]) => (
+      <div key={key} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+        <div>
+          <span className="text-sm text-gray-600 capitalize">
+            {key === 'telefono' ? 'Teléfono' : 
+             key === 'cedula' ? 'Cédula' : 
+             key === 'numeroCuenta' ? 'Número de Cuenta' :
+             key === 'cedulaRif' ? 'Cédula/RIF' :
+             key === 'correo' ? 'Correo' :
+             key === 'id' ? 'ID' :
+             key.charAt(0).toUpperCase() + key.slice(1)}:
+          </span>
+          <p className="font-medium">{value}</p>
+        </div>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => copyToClipboard(value, key)}
+        >
+          {copiedField === key ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+        </Button>
+      </div>
+    ));
   };
 
   if (!planId || !planName || !planPrice) {
@@ -191,25 +270,7 @@ const Checkout = () => {
                       </p>
                     </div>
                     
-                    {Object.entries(pagoMovilData).map(([key, value]) => (
-                      <div key={key} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                        <div>
-                          <span className="text-sm text-gray-600 capitalize">
-                            {key === 'telefono' ? 'Teléfono' : 
-                             key === 'cedula' ? 'Cédula' : 
-                             key.charAt(0).toUpperCase() + key.slice(1)}:
-                          </span>
-                          <p className="font-medium">{value}</p>
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => copyToClipboard(value, key)}
-                        >
-                          {copiedField === key ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                        </Button>
-                      </div>
-                    ))}
+                    {renderPaymentData(pagoMovilData, 'pago_movil')}
                     
                     <div className="mt-6">
                       <Button 
@@ -240,25 +301,69 @@ const Checkout = () => {
                       </p>
                     </div>
                     
-                    {Object.entries(transferenciaBancaria).map(([key, value]) => (
-                      <div key={key} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                        <div>
-                          <span className="text-sm text-gray-600 capitalize">
-                            {key === 'numeroCuenta' ? 'Número de Cuenta' :
-                             key === 'cedulaRif' ? 'Cédula/RIF' :
-                             key.charAt(0).toUpperCase() + key.slice(1)}:
-                          </span>
-                          <p className="font-medium">{value}</p>
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => copyToClipboard(value, key)}
-                        >
-                          {copiedField === key ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                        </Button>
-                      </div>
-                    ))}
+                    {renderPaymentData(transferenciaBancaria, 'transferencia')}
+                    
+                    <div className="mt-6">
+                      <Button 
+                        className="w-full bg-blue-gradient text-white"
+                        onClick={handleConfirmPayment}
+                      >
+                        Confirmar Pago Realizado
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {selectedPaymentMethod === 'zinli' && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <CreditCard className="h-5 w-5" />
+                    Datos para Zinli
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="p-3 bg-blue-50 rounded-lg">
+                      <p className="text-sm text-blue-800 mb-2">
+                        Realiza el pago con los siguientes datos:
+                      </p>
+                    </div>
+                    
+                    {renderPaymentData(zinliData, 'zinli')}
+                    
+                    <div className="mt-6">
+                      <Button 
+                        className="w-full bg-blue-gradient text-white"
+                        onClick={handleConfirmPayment}
+                      >
+                        Confirmar Pago Realizado
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {selectedPaymentMethod === 'binance' && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <CreditCard className="h-5 w-5" />
+                    Datos para Binance
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="p-3 bg-blue-50 rounded-lg">
+                      <p className="text-sm text-blue-800 mb-2">
+                        Realiza el pago con los siguientes datos:
+                      </p>
+                    </div>
+                    
+                    {renderPaymentData(binanceData, 'binance')}
                     
                     <div className="mt-6">
                       <Button 
@@ -282,6 +387,84 @@ const Checkout = () => {
             )}
           </div>
         </div>
+
+        {/* Confirmation Modal */}
+        <Dialog open={showConfirmModal} onOpenChange={setShowConfirmModal}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>Confirmar Pago</DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="proof">Comprobante de Pago *</Label>
+                <div className="mt-2">
+                  <Input
+                    id="proof"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="cursor-pointer"
+                  />
+                  {proofFile && (
+                    <p className="text-sm text-green-600 mt-1">
+                      ✓ {proofFile.name}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="name">Nombre o Apodo *</Label>
+                <Input
+                  id="name"
+                  value={customerName}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                  placeholder="Tu nombre o como prefieres que te llamen"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="contact">Contacto *</Label>
+                <div className="flex gap-2 mt-1">
+                  <select
+                    value={countryCode}
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    className="px-3 py-2 border rounded-md bg-white"
+                  >
+                    <option value="+58">🇻🇪 +58</option>
+                    <option value="+1">🇺🇸 +1</option>
+                    <option value="+57">🇨🇴 +57</option>
+                    <option value="+51">🇵🇪 +51</option>
+                  </select>
+                  <Input
+                    id="contact"
+                    value={contactInfo}
+                    onChange={(e) => setContactInfo(e.target.value)}
+                    placeholder="Número de teléfono o correo electrónico"
+                    className="flex-1"
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-3 pt-4">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowConfirmModal(false)}
+                  className="flex-1"
+                >
+                  Cancelar
+                </Button>
+                <Button 
+                  onClick={handleSubmitProof}
+                  className="flex-1 bg-blue-gradient text-white"
+                >
+                  Enviar Comprobante
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
