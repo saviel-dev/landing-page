@@ -127,7 +127,7 @@ const Checkout = () => {
     navigate('/');
   };
 
-  const renderPaymentData = (data: any, type: string) => {
+  const renderPaymentData = (data: Record<string, string>, type: string) => {
     return Object.entries(data).map(([key, value]) => (
       <div key={key} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
         <div>
