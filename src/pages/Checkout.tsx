@@ -27,6 +27,24 @@ const Checkout = () => {
   const [contactInfo, setContactInfo] = useState('');
   const [countryCode, setCountryCode] = useState('+58');
 
+  const countryCodes = [
+    { code: '+58', country: '🇻🇪 Venezuela', name: 'Venezuela' },
+    { code: '+51', country: '🇵🇪 Perú', name: 'Perú' },
+    { code: '+52', country: '🇲🇽 México', name: 'México' },
+    { code: '+56', country: '🇨🇱 Chile', name: 'Chile' },
+    { code: '+57', country: '🇨🇴 Colombia', name: 'Colombia' },
+    { code: '+1', country: '🇺🇸 Estados Unidos', name: 'Estados Unidos' },
+    { code: '+54', country: '🇦🇷 Argentina', name: 'Argentina' },
+    { code: '+55', country: '🇧🇷 Brasil', name: 'Brasil' },
+    { code: '+598', country: '🇺🇾 Uruguay', name: 'Uruguay' },
+    { code: '+595', country: '🇵🇾 Paraguay', name: 'Paraguay' },
+    { code: '+593', country: '🇪🇨 Ecuador', name: 'Ecuador' },
+    { code: '+591', country: '🇧🇴 Bolivia', name: 'Bolivia' },
+    { code: '+507', country: '🇵🇦 Panamá', name: 'Panamá' },
+    { code: '+506', country: '🇨🇷 Costa Rica', name: 'Costa Rica' },
+    { code: '+34', country: '🇪🇸 España', name: 'España' },
+  ];
+
   useEffect(() => {
     if (!planId || !planName || !planPrice) {
       navigate('/');
@@ -118,13 +136,21 @@ const Checkout = () => {
       return;
     }
 
-    toast({
-      title: "Comprobante Enviado",
-      description: "Tu comprobante ha sido enviado exitosamente. Te contactaremos pronto para confirmar el pago.",
+    // Crear datos del recibo
+    const receiptData = {
+      customerName,
+      contact: `${countryCode} ${contactInfo}`,
+      planName,
+      planPrice,
+      paymentMethod: selectedPaymentMethod,
+      date: new Date().toLocaleDateString('es-ES'),
+      proofFileName: proofFile.name
+    };
+
+    // Navegar a la página de recibo
+    navigate('/receipt', { 
+      state: receiptData
     });
-    
-    setShowConfirmModal(false);
-    navigate('/');
   };
 
   const renderPaymentData = (data: Record<string, string>, type: string) => {
@@ -430,12 +456,13 @@ const Checkout = () => {
                   <select
                     value={countryCode}
                     onChange={(e) => setCountryCode(e.target.value)}
-                    className="px-3 py-2 border rounded-md bg-white"
+                    className="px-3 py-2 border rounded-md bg-white text-sm"
                   >
-                    <option value="+58">🇻🇪 +58</option>
-                    <option value="+1">🇺🇸 +1</option>
-                    <option value="+57">🇨🇴 +57</option>
-                    <option value="+51">🇵🇪 +51</option>
+                    {countryCodes.map((country) => (
+                      <option key={country.code} value={country.code}>
+                        {country.country}
+                      </option>
+                    ))}
                   </select>
                   <Input
                     id="contact"

@@ -3,6 +3,17 @@ import { ArrowRight, Code, Zap, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Hero = () => {
+  const handleGetStarted = () => {
+    const phoneNumber = "584122865550";
+    const message = "Hola, Buen dia Busco cotizar un proyecto";
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
+
+  const handleViewPortfolio = () => {
+    document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section id="inicio" className="pt-20 pb-20 bg-gradient-to-br from-blue-50 to-white overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -29,11 +40,20 @@ const Hero = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Button size="lg" className="bg-blue-gradient hover:opacity-90 text-white text-lg px-8 py-4">
+              <Button 
+                size="lg" 
+                className="bg-blue-gradient hover:opacity-90 text-white text-lg px-8 py-4"
+                onClick={handleGetStarted}
+              >
                 Comenzar
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button variant="outline" size="lg" className="text-blue-600 border-blue-300 hover:bg-blue-50 text-lg px-8 py-4">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="text-blue-600 border-blue-300 hover:bg-blue-50 text-lg px-8 py-4"
+                onClick={handleViewPortfolio}
+              >
                 Ver Portfolio
               </Button>
             </div>

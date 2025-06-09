@@ -1,18 +1,30 @@
 
-import { Check, Star, Crown, Rocket, Building } from "lucide-react";
+import { Check, Star, Crown, Rocket, Building, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const PricingPlans = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [showLocalPaymentModal, setShowLocalPaymentModal] = useState(false);
+  const [localPaymentData, setLocalPaymentData] = useState({
+    name: "",
+    country: "",
+    contact: ""
+  });
 
   const plans = [
     {
       id: "basico",
       name: "Básico",
       icon: <Star className="h-6 w-6" />,
-      price: "$299",
+      priceRange: "$299 - $499",
       period: "pago único",
       description: "Perfecto para emprendedores y pequeños negocios",
       popular: false,
@@ -29,7 +41,7 @@ const PricingPlans = () => {
       id: "profesional",
       name: "Profesional",
       icon: <Rocket className="h-6 w-6" />,
-      price: "$599",
+      priceRange: "$599 - $899",
       period: "pago único",
       description: "Ideal para negocios establecidos",
       popular: true,
@@ -48,7 +60,7 @@ const PricingPlans = () => {
       id: "premium",
       name: "Premium",
       icon: <Crown className="h-6 w-6" />,
-      price: "$999",
+      priceRange: "$999 - $1,499",
       period: "pago único",
       description: "Para negocios que buscan destacar",
       popular: false,
@@ -67,7 +79,7 @@ const PricingPlans = () => {
       id: "ecommerce",
       name: "E-commerce",
       icon: <Building className="h-6 w-6" />,
-      price: "$1,499",
+      priceRange: "$1,499 - $2,499",
       period: "pago único",
       description: "Tienda online completa",
       popular: false,
@@ -86,7 +98,7 @@ const PricingPlans = () => {
       id: "empresarial",
       name: "Empresarial",
       icon: <Building className="h-6 w-6" />,
-      price: "Cotizar",
+      priceRange: "Cotizar",
       period: "proyecto",
       description: "Soluciones a medida para grandes empresas",
       popular: false,
@@ -104,7 +116,34 @@ const PricingPlans = () => {
   ];
 
   const handlePlanSelection = (planId: string, planName: string, price: string) => {
-    navigate(`/checkout?plan=${planId}&name=${encodeURIComponent(planName)}&price=${encodeURIComponent(price)}`);
+    if (planId === "empresarial") {
+      // Abrir WhatsApp para cotización
+      const phoneNumber = "584122865550";
+      const message = "Hola, Buen dia. Busco cotizar un proyecto empresarial.";
+      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    } else {
+      navigate(`/checkout?plan=${planId}&name=${encodeURIComponent(planName)}&price=${encodeURIComponent(price)}`);
+    }
+  };
+
+  const handleLocalPaymentSubmit = () => {
+    if (!localPaymentData.name || !localPaymentData.country || !localPaymentData.contact) {
+      toast({
+        title: "Error",
+        description: "Por favor completa todos los campos",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    toast({
+      title: "Solicitud Enviada",
+      description: "Tu solicitud de método de pago local ha sido enviada. Te contactaremos pronto.",
+    });
+
+    setShowLocalPaymentModal(false);
+    setLocalPaymentData({ name: "", country: "", contact: "" });
   };
 
   return (
@@ -118,11 +157,11 @@ const PricingPlans = () => {
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Nuestros <span className="text-blue-gradient">Planes</span>
+            Transforma tu Negocio con Nuestros <span className="text-blue-gradient">Planes Exclusivos</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Desde soluciones económicas hasta desarrollos empresariales. 
-            Encuentra el plan perfecto para tu proyecto.
+            Encuentra el plan perfecto para impulsar tu proyecto al siguiente nivel.
           </p>
         </div>
 
@@ -150,7 +189,7 @@ const PricingPlans = () => {
                   <h3 className="text-xl font-bold text-gray-900 mb-2">{plan.name}</h3>
                   <p className="text-sm text-gray-600 mb-4">{plan.description}</p>
                   <div className="mb-4">
-                    <span className="text-3xl font-bold text-gray-900">{plan.price}</span>
+                    <span className="text-3xl font-bold text-gray-900">{plan.priceRange}</span>
                     <span className="text-gray-600 ml-2">/ {plan.period}</span>
                   </div>
                 </div>
@@ -165,19 +204,88 @@ const PricingPlans = () => {
                 </ul>
 
                 <Button 
-                  onClick={() => handlePlanSelection(plan.id, plan.name, plan.price)}
+                  onClick={() => handlePlanSelection(plan.id, plan.name, plan.priceRange)}
                   className={`w-full ${
                     plan.popular 
                       ? 'bg-blue-gradient text-white hover:opacity-90' 
                       : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                   }`}
                 >
-                  {plan.price === "Cotizar" ? "Solicitar Cotización" : "Elegir Plan"}
+                  {plan.priceRange === "Cotizar" ? "Cotizar Proyecto" : "Elegir Plan"}
                 </Button>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Local Payment Method Button */}
+        <div className="text-center mt-12">
+          <Button 
+            onClick={() => setShowLocalPaymentModal(true)}
+            variant="outline"
+            className="border-blue-500 text-blue-600 hover:bg-blue-50"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Solicitar Método de Pago Local
+          </Button>
+        </div>
+
+        {/* Local Payment Modal */}
+        <Dialog open={showLocalPaymentModal} onOpenChange={setShowLocalPaymentModal}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>Solicitar Método de Pago Local</DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="localName">Nombre completo *</Label>
+                <Input
+                  id="localName"
+                  value={localPaymentData.name}
+                  onChange={(e) => setLocalPaymentData(prev => ({ ...prev, name: e.target.value }))}
+                  placeholder="Tu nombre completo"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="localCountry">País *</Label>
+                <Input
+                  id="localCountry"
+                  value={localPaymentData.country}
+                  onChange={(e) => setLocalPaymentData(prev => ({ ...prev, country: e.target.value }))}
+                  placeholder="Tu país"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="localContact">Contacto *</Label>
+                <Input
+                  id="localContact"
+                  value={localPaymentData.contact}
+                  onChange={(e) => setLocalPaymentData(prev => ({ ...prev, contact: e.target.value }))}
+                  placeholder="Email o teléfono"
+                />
+              </div>
+
+              <div className="flex gap-3 pt-4">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowLocalPaymentModal(false)}
+                  className="flex-1"
+                >
+                  Cancelar
+                </Button>
+                <Button 
+                  onClick={handleLocalPaymentSubmit}
+                  className="flex-1 bg-blue-gradient text-white"
+                >
+                  Enviar Solicitud
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );

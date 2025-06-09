@@ -43,6 +43,13 @@ const ContactForm = () => {
     });
   };
 
+  const handleWhatsAppClick = () => {
+    const phoneNumber = "584122865550";
+    const message = "Hola, Buen dia Busco cotizar un proyecto";
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
+
   return (
     <section id="contacto" className="py-20 bg-blue-gradient-light">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -77,7 +84,7 @@ const ContactForm = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Email</h4>
-                    <p className="text-gray-600">info@jh-services.com</p>
+                    <p className="text-gray-600">saviel.dev@gmail.com</p>
                   </div>
                 </div>
 
@@ -87,7 +94,7 @@ const ContactForm = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Teléfono</h4>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                    <p className="text-gray-600">+58 412 286 55 50</p>
                   </div>
                 </div>
 
@@ -97,7 +104,7 @@ const ContactForm = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Ubicación</h4>
-                    <p className="text-gray-600">Ciudad, País</p>
+                    <p className="text-gray-600">Ocumare del Tuy, Edo Miranda Venezuela</p>
                   </div>
                 </div>
               </div>
@@ -109,7 +116,10 @@ const ContactForm = () => {
                 <p className="text-gray-600 mb-4">
                   Contáctanos por WhatsApp para una respuesta inmediata.
                 </p>
-                <Button className="bg-green-500 hover:bg-green-600 text-white">
+                <Button 
+                  className="bg-green-500 hover:bg-green-600 text-white"
+                  onClick={handleWhatsAppClick}
+                >
                   <Phone className="h-4 w-4 mr-2" />
                   WhatsApp
                 </Button>
@@ -164,7 +174,7 @@ const ContactForm = () => {
                     type="tel"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    placeholder="+1 (555) 123-4567"
+                    placeholder="+58 412 286 55 50"
                     className="w-full"
                   />
                 </div>

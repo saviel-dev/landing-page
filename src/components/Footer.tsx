@@ -1,12 +1,10 @@
-
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Github } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Github } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
     { icon: <Facebook className="h-5 w-5" />, href: "#", label: "Facebook" },
-    { icon: <Twitter className="h-5 w-5" />, href: "#", label: "Twitter" },
     { icon: <Instagram className="h-5 w-5" />, href: "#", label: "Instagram" },
     { icon: <Linkedin className="h-5 w-5" />, href: "#", label: "LinkedIn" },
     { icon: <Github className="h-5 w-5" />, href: "#", label: "GitHub" },
@@ -88,7 +86,7 @@ const Footer = () => {
         </div>
 
         {/* Links grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {/* Navigation */}
           <div>
             <h3 className="text-lg font-semibold mb-4 text-gray-200">Navegación</h3>
@@ -138,25 +136,6 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div className="lg:col-span-2">
-            <h3 className="text-lg font-semibold mb-4 text-gray-200">Newsletter</h3>
-            <p className="text-gray-400 mb-4">
-              Recibe las últimas actualizaciones
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                placeholder="tu@email.com"
-                className="flex-1 px-4 py-2 bg-gray-800 text-white rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-              <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center gap-2">
-                <Mail className="h-4 w-4" />
-                Suscribirse
-              </button>
-            </div>
           </div>
         </div>
 

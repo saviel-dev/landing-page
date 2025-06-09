@@ -119,6 +119,10 @@
     background-position: top;
     padding-top: 80px;
   }
+
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
 }
 
 /* Animation classes */
