@@ -66,45 +66,58 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Side - Illustration */}
+          {/* Right Side - More Attractive Image */}
           <div className="relative animate-slide-in-right">
             <div className="relative z-10">
-              {/* Main illustration container */}
+              {/* Main illustration container with modern web development theme */}
               <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-3xl p-8 lg:p-12 relative overflow-hidden">
-                {/* Character illustration */}
+                {/* Modern laptop/coding illustration */}
                 <div className="flex justify-center items-center mb-8">
                   <div className="relative">
-                    {/* Person pushing cart */}
-                    <div className="w-32 h-32 bg-red-500 rounded-full flex items-center justify-center relative">
-                      <div className="w-16 h-20 bg-red-600 rounded-t-full"></div>
-                      <div className="absolute top-8 left-8 w-6 h-6 bg-gray-800 rounded-full"></div>
-                      <div className="absolute top-12 left-10 w-2 h-1 bg-gray-600 rounded"></div>
+                    {/* Laptop screen */}
+                    <div className="w-48 h-32 bg-gray-900 rounded-lg flex items-center justify-center relative border-4 border-gray-700">
+                      {/* Code lines on screen */}
+                      <div className="space-y-2 w-40">
+                        <div className="h-2 bg-green-400 rounded w-3/4"></div>
+                        <div className="h-2 bg-blue-400 rounded w-full"></div>
+                        <div className="h-2 bg-yellow-400 rounded w-2/3"></div>
+                        <div className="h-2 bg-purple-400 rounded w-5/6"></div>
+                        <div className="h-2 bg-red-400 rounded w-1/2"></div>
+                        <div className="h-2 bg-cyan-400 rounded w-4/5"></div>
+                      </div>
                     </div>
-                    {/* Arms */}
-                    <div className="absolute top-16 -left-8 w-16 h-4 bg-orange-300 rounded-full transform -rotate-12"></div>
-                    <div className="absolute top-16 -right-8 w-16 h-4 bg-orange-300 rounded-full transform rotate-12"></div>
-                    {/* Legs */}
-                    <div className="absolute top-28 left-4 w-8 h-16 bg-blue-400 rounded-full"></div>
-                    <div className="absolute top-28 right-4 w-8 h-16 bg-blue-400 rounded-full"></div>
+                    {/* Laptop base */}
+                    <div className="w-52 h-4 bg-gray-300 rounded-b-xl -mt-1 mx-auto"></div>
                   </div>
                 </div>
 
-                {/* Shopping cart */}
-                <div className="flex justify-center mb-8">
-                  <div className="w-20 h-16 border-4 border-gray-800 rounded-lg relative">
-                    <div className="absolute -bottom-4 left-2 w-4 h-4 bg-gray-800 rounded-full"></div>
-                    <div className="absolute -bottom-4 right-2 w-4 h-4 bg-gray-800 rounded-full"></div>
-                    <div className="absolute -left-8 top-2 w-8 h-2 bg-gray-800 rounded"></div>
-                  </div>
+                {/* Floating elements around laptop */}
+                <div className="absolute top-8 left-8 w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center animate-bounce">
+                  <Code className="h-6 w-6 text-white" />
+                </div>
+                
+                <div className="absolute top-16 right-8 w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                  <Shield className="h-5 w-5 text-white" />
+                </div>
+                
+                <div className="absolute bottom-20 left-12 w-14 h-14 bg-purple-500 rounded-lg flex items-center justify-center">
+                  <Zap className="h-7 w-7 text-white" />
                 </div>
 
-                {/* Product icons grid */}
-                <div className="grid grid-cols-3 gap-4">
-                  {[...Array(9)].map((_, i) => (
-                    <div key={i} className="w-12 h-12 bg-white rounded-lg shadow-sm flex items-center justify-center">
-                      <div className="w-6 h-6 bg-gray-300 rounded"></div>
-                    </div>
-                  ))}
+                {/* Technology stack icons */}
+                <div className="flex justify-center space-x-4 mt-8">
+                  <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
+                    <span className="text-white font-bold text-xs">JS</span>
+                  </div>
+                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+                    <span className="text-white font-bold text-xs">TS</span>
+                  </div>
+                  <div className="w-12 h-12 bg-cyan-500 rounded-lg flex items-center justify-center">
+                    <span className="text-white font-bold text-xs">CSS</span>
+                  </div>
+                  <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
+                    <span className="text-white font-bold text-xs">API</span>
+                  </div>
                 </div>
 
                 {/* Decorative elements */}

@@ -2,10 +2,14 @@
 import { Check, Star, Crown, Rocket, Building } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
 
 const PricingPlans = () => {
+  const navigate = useNavigate();
+
   const plans = [
     {
+      id: "basico",
       name: "Básico",
       icon: <Star className="h-6 w-6" />,
       price: "$299",
@@ -22,6 +26,7 @@ const PricingPlans = () => {
       ],
     },
     {
+      id: "profesional",
       name: "Profesional",
       icon: <Rocket className="h-6 w-6" />,
       price: "$599",
@@ -40,6 +45,7 @@ const PricingPlans = () => {
       ],
     },
     {
+      id: "premium",
       name: "Premium",
       icon: <Crown className="h-6 w-6" />,
       price: "$999",
@@ -58,6 +64,7 @@ const PricingPlans = () => {
       ],
     },
     {
+      id: "ecommerce",
       name: "E-commerce",
       icon: <Building className="h-6 w-6" />,
       price: "$1,499",
@@ -76,6 +83,7 @@ const PricingPlans = () => {
       ],
     },
     {
+      id: "empresarial",
       name: "Empresarial",
       icon: <Building className="h-6 w-6" />,
       price: "Cotizar",
@@ -94,6 +102,10 @@ const PricingPlans = () => {
       ],
     },
   ];
+
+  const handlePlanSelection = (planId: string, planName: string, price: string) => {
+    navigate(`/checkout?plan=${planId}&name=${encodeURIComponent(planName)}&price=${encodeURIComponent(price)}`);
+  };
 
   return (
     <section id="planes" className="py-20 bg-blue-gradient-light">
@@ -114,53 +126,57 @@ const PricingPlans = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-          {plans.map((plan, index) => (
-            <div
-              key={index}
-              className={`relative p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in-up ${
-                plan.popular ? 'ring-2 ring-blue-500 scale-105' : ''
-              }`}
-              style={{animationDelay: `${index * 0.1}s`}}
-            >
-              {plan.popular && (
-                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-gradient text-white">
-                  Más Popular
-                </Badge>
-              )}
-
-              <div className="text-center mb-6">
-                <div className="text-blue-500 mb-3 flex justify-center">
-                  {plan.icon}
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{plan.name}</h3>
-                <p className="text-sm text-gray-600 mb-4">{plan.description}</p>
-                <div className="mb-4">
-                  <span className="text-3xl font-bold text-gray-900">{plan.price}</span>
-                  <span className="text-gray-600 ml-2">/ {plan.period}</span>
-                </div>
-              </div>
-
-              <ul className="space-y-3 mb-6">
-                {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start gap-3">
-                    <Check className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-gray-600">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <Button 
-                className={`w-full ${
-                  plan.popular 
-                    ? 'bg-blue-gradient text-white hover:opacity-90' 
-                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+        {/* Centered cards container */}
+        <div className="flex justify-center">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-7xl">
+            {plans.map((plan, index) => (
+              <div
+                key={index}
+                className={`relative p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in-up ${
+                  plan.popular ? 'ring-2 ring-blue-500 scale-105' : ''
                 }`}
+                style={{animationDelay: `${index * 0.1}s`}}
               >
-                {plan.price === "Cotizar" ? "Solicitar Cotización" : "Elegir Plan"}
-              </Button>
-            </div>
-          ))}
+                {plan.popular && (
+                  <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-gradient text-white">
+                    Más Popular
+                  </Badge>
+                )}
+
+                <div className="text-center mb-6">
+                  <div className="text-blue-500 mb-3 flex justify-center">
+                    {plan.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{plan.name}</h3>
+                  <p className="text-sm text-gray-600 mb-4">{plan.description}</p>
+                  <div className="mb-4">
+                    <span className="text-3xl font-bold text-gray-900">{plan.price}</span>
+                    <span className="text-gray-600 ml-2">/ {plan.period}</span>
+                  </div>
+                </div>
+
+                <ul className="space-y-3 mb-6">
+                  {plan.features.map((feature, featureIndex) => (
+                    <li key={featureIndex} className="flex items-start gap-3">
+                      <Check className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-gray-600">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Button 
+                  onClick={() => handlePlanSelection(plan.id, plan.name, plan.price)}
+                  className={`w-full ${
+                    plan.popular 
+                      ? 'bg-blue-gradient text-white hover:opacity-90' 
+                      : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                  }`}
+                >
+                  {plan.price === "Cotizar" ? "Solicitar Cotización" : "Elegir Plan"}
+                </Button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
