@@ -25,6 +25,7 @@ const PricingPlans = () => {
       name: "Básico",
       icon: <Star className="h-6 w-6" />,
       priceRange: "$299 - $499",
+      shortPrice: "$299+",
       period: "pago único",
       description: "Perfecto para emprendedores y pequeños negocios",
       popular: false,
@@ -42,6 +43,7 @@ const PricingPlans = () => {
       name: "Profesional",
       icon: <Rocket className="h-6 w-6" />,
       priceRange: "$599 - $899",
+      shortPrice: "$599+",
       period: "pago único",
       description: "Ideal para negocios establecidos",
       popular: true,
@@ -61,6 +63,7 @@ const PricingPlans = () => {
       name: "Premium",
       icon: <Crown className="h-6 w-6" />,
       priceRange: "$999 - $1,499",
+      shortPrice: "$999+",
       period: "pago único",
       description: "Para negocios que buscan destacar",
       popular: false,
@@ -80,6 +83,7 @@ const PricingPlans = () => {
       name: "E-commerce",
       icon: <Building className="h-6 w-6" />,
       priceRange: "$1,499 - $2,499",
+      shortPrice: "$1,499+",
       period: "pago único",
       description: "Tienda online completa",
       popular: false,
@@ -99,6 +103,7 @@ const PricingPlans = () => {
       name: "Empresarial",
       icon: <Building className="h-6 w-6" />,
       priceRange: "Cotizar",
+      shortPrice: "Cotizar",
       period: "proyecto",
       description: "Soluciones a medida para grandes empresas",
       popular: false,
@@ -171,7 +176,7 @@ const PricingPlans = () => {
             {plans.map((plan, index) => (
               <div
                 key={index}
-                className={`relative p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in-up ${
+                className={`relative p-6 bg-white rounded-2xl shadow-lg transition-all duration-300 animate-fade-in-up cursor-pointer group hover:shadow-2xl hover:scale-105 hover:-translate-y-2 ${
                   plan.popular ? 'ring-2 ring-blue-500 scale-105' : ''
                 }`}
                 style={{animationDelay: `${index * 0.1}s`}}
@@ -183,13 +188,16 @@ const PricingPlans = () => {
                 )}
 
                 <div className="text-center mb-6">
-                  <div className="text-blue-500 mb-3 flex justify-center">
+                  <div className="text-blue-500 mb-3 flex justify-center group-hover:scale-110 transition-transform duration-300">
                     {plan.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{plan.name}</h3>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">{plan.name}</h3>
                   <p className="text-sm text-gray-600 mb-4">{plan.description}</p>
                   <div className="mb-4">
-                    <span className="text-3xl font-bold text-gray-900">{plan.priceRange}</span>
+                    <span className="text-3xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
+                      <span className="hidden lg:inline">{plan.priceRange}</span>
+                      <span className="lg:hidden">{plan.shortPrice}</span>
+                    </span>
                     <span className="text-gray-600 ml-2">/ {plan.period}</span>
                   </div>
                 </div>
@@ -197,7 +205,7 @@ const PricingPlans = () => {
                 <ul className="space-y-3 mb-6">
                   {plan.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-start gap-3">
-                      <Check className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <Check className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5 group-hover:text-green-600 transition-colors duration-300" />
                       <span className="text-sm text-gray-600">{feature}</span>
                     </li>
                   ))}
@@ -205,10 +213,10 @@ const PricingPlans = () => {
 
                 <Button 
                   onClick={() => handlePlanSelection(plan.id, plan.name, plan.priceRange)}
-                  className={`w-full ${
+                  className={`w-full transition-all duration-300 group-hover:scale-105 ${
                     plan.popular 
                       ? 'bg-blue-gradient text-white hover:opacity-90' 
-                      : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                      : 'bg-gray-100 text-gray-900 hover:bg-blue-gradient hover:text-white'
                   }`}
                 >
                   {plan.priceRange === "Cotizar" ? "Cotizar Proyecto" : "Elegir Plan"}
@@ -223,7 +231,7 @@ const PricingPlans = () => {
           <Button 
             onClick={() => setShowLocalPaymentModal(true)}
             variant="outline"
-            className="border-blue-500 text-blue-600 hover:bg-blue-50"
+            className="border-blue-500 text-blue-600 hover:bg-blue-50 hover:scale-105 transition-all duration-300"
           >
             <Plus className="h-4 w-4 mr-2" />
             Solicitar Método de Pago Local
