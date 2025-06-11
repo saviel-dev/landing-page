@@ -1,4 +1,3 @@
-
 import { Check, Star, Crown, Rocket, Building, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -24,8 +23,8 @@ const PricingPlans = () => {
       id: "basico",
       name: "Básico",
       icon: <Star className="h-6 w-6" />,
-      priceRange: "$299 - $499",
-      shortPrice: "$299+",
+      priceRange: "$150 - $349",
+      shortPrice: "$150+",
       period: "pago único",
       description: "Perfecto para emprendedores y pequeños negocios",
       popular: false,
@@ -34,7 +33,6 @@ const PricingPlans = () => {
         "Diseño responsivo",
         "Formulario de contacto",
         "Integración redes sociales",
-        "SEO básico",
         "1 mes de soporte",
       ],
     },
@@ -53,7 +51,6 @@ const PricingPlans = () => {
         "Blog/Noticias",
         "Galería de imágenes",
         "Chat en vivo",
-        "SEO avanzado",
         "3 meses de soporte",
         "Certificado SSL",
       ],
@@ -170,9 +167,9 @@ const PricingPlans = () => {
           </p>
         </div>
 
-        {/* Centered cards container */}
+        {/* Centered cards container with larger desktop width */}
         <div className="flex justify-center">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-7xl">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 max-w-8xl w-full">
             {plans.map((plan, index) => (
               <div
                 key={index}
