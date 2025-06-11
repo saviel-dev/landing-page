@@ -45,7 +45,7 @@ const Receipt = () => {
     <div className="min-h-screen bg-gray-50 pt-8 pb-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl">
         {/* Header */}
-        <div className="mb-8 no-print">
+        <div className="mb-8 print:hidden">
           <Button 
             variant="ghost" 
             onClick={() => navigate('/')}
@@ -169,7 +169,7 @@ const Receipt = () => {
             </div>
 
             {/* Actions */}
-            <div className="flex gap-4 no-print">
+            <div className="flex gap-4 print:hidden">
               <Button 
                 onClick={handlePrint}
                 className="flex-1 bg-blue-gradient text-white"
@@ -189,23 +189,12 @@ const Receipt = () => {
         </Card>
 
         {/* Contact Info */}
-        <div className="mt-8 text-center text-gray-600 no-print">
+        <div className="mt-8 text-center text-gray-600 print:hidden">
           <p className="mb-2">¿Tienes alguna pregunta sobre tu pedido?</p>
           <p>Contáctanos: <span className="text-blue-600 font-medium">saviel.dev@gmail.com</span></p>
           <p>WhatsApp: <span className="text-blue-600 font-medium">+58 412 286 55 50</span></p>
         </div>
       </div>
-
-      <style jsx>{`
-        @media print {
-          .no-print {
-            display: none !important;
-          }
-          body {
-            background: white !important;
-          }
-        }
-      `}</style>
     </div>
   );
 };
