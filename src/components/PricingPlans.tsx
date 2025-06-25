@@ -23,7 +23,7 @@ const PricingPlans = () => {
       id: "basico",
       name: "Básico",
       icon: <Star className="h-6 w-6" />,
-      priceRange: "$150 - $349",
+      priceRange: "$150-$349 ",
       shortPrice: "$150+",
       period: "pago único",
       description: "Perfecto para emprendedores y pequeños negocios",
@@ -33,6 +33,7 @@ const PricingPlans = () => {
         "Diseño responsivo",
         "Formulario de contacto",
         "Integración redes sociales",
+        "Hosting y dominio de un año",
         "1 mes de soporte",
       ],
     },
@@ -40,7 +41,7 @@ const PricingPlans = () => {
       id: "profesional",
       name: "Profesional",
       icon: <Rocket className="h-6 w-6" />,
-      priceRange: "$599 - $899",
+      priceRange: "$599 - $899 ",
       shortPrice: "$599+",
       period: "pago único",
       description: "Ideal para negocios establecidos",
@@ -59,7 +60,7 @@ const PricingPlans = () => {
       id: "premium",
       name: "Premium",
       icon: <Crown className="h-6 w-6" />,
-      priceRange: "$999 - $1,499",
+      priceRange: "$999 - $1,499 ",
       shortPrice: "$999+",
       period: "pago único",
       description: "Para negocios que buscan destacar",
@@ -73,26 +74,6 @@ const PricingPlans = () => {
         "Backup automático",
         "6 meses de soporte",
         "Hosting incluido (1 año)",
-      ],
-    },
-    {
-      id: "ecommerce",
-      name: "E-commerce",
-      icon: <Building className="h-6 w-6" />,
-      priceRange: "$1,499 - $2,499",
-      shortPrice: "$1,499+",
-      period: "pago único",
-      description: "Tienda online completa",
-      popular: false,
-      features: [
-        "Tienda online profesional",
-        "Productos ilimitados",
-        "Pasarelas de pago integradas",
-        "Gestión de inventario",
-        "Panel de ventas",
-        "Marketing por email",
-        "12 meses de soporte",
-        "Hosting premium incluido",
       ],
     },
     {
@@ -169,14 +150,15 @@ const PricingPlans = () => {
 
         {/* Centered cards container with larger desktop width */}
         <div className="flex justify-center">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 max-w-8xl w-full">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-12 max-w-7xl w-full mx-auto">
             {plans.map((plan, index) => (
               <div
                 key={index}
+                style={{width: 'calc(100% + 10px)', marginLeft: '-5px', animationDelay: `${index * 0.1}s`}}
                 className={`relative p-6 bg-white rounded-2xl shadow-lg transition-all duration-300 animate-fade-in-up cursor-pointer group hover:shadow-2xl hover:scale-105 hover:-translate-y-2 ${
                   plan.popular ? 'ring-2 ring-blue-500 scale-105' : ''
                 }`}
-                style={{animationDelay: `${index * 0.1}s`}}
+
               >
                 {plan.popular && (
                   <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-gradient text-white">
@@ -223,74 +205,7 @@ const PricingPlans = () => {
           </div>
         </div>
 
-        {/* Local Payment Method Button */}
-        <div className="text-center mt-12">
-          <Button 
-            onClick={() => setShowLocalPaymentModal(true)}
-            variant="outline"
-            className="border-blue-500 text-blue-600 hover:bg-blue-50 hover:scale-105 transition-all duration-300"
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            Solicitar Método de Pago Local
-          </Button>
-        </div>
-
-        {/* Local Payment Modal */}
-        <Dialog open={showLocalPaymentModal} onOpenChange={setShowLocalPaymentModal}>
-          <DialogContent className="max-w-md">
-            <DialogHeader>
-              <DialogTitle>Solicitar Método de Pago Local</DialogTitle>
-            </DialogHeader>
-            
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="localName">Nombre completo *</Label>
-                <Input
-                  id="localName"
-                  value={localPaymentData.name}
-                  onChange={(e) => setLocalPaymentData(prev => ({ ...prev, name: e.target.value }))}
-                  placeholder="Tu nombre completo"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="localCountry">País *</Label>
-                <Input
-                  id="localCountry"
-                  value={localPaymentData.country}
-                  onChange={(e) => setLocalPaymentData(prev => ({ ...prev, country: e.target.value }))}
-                  placeholder="Tu país"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="localContact">Contacto *</Label>
-                <Input
-                  id="localContact"
-                  value={localPaymentData.contact}
-                  onChange={(e) => setLocalPaymentData(prev => ({ ...prev, contact: e.target.value }))}
-                  placeholder="Email o teléfono"
-                />
-              </div>
-
-              <div className="flex gap-3 pt-4">
-                <Button 
-                  variant="outline" 
-                  onClick={() => setShowLocalPaymentModal(false)}
-                  className="flex-1"
-                >
-                  Cancelar
-                </Button>
-                <Button 
-                  onClick={handleLocalPaymentSubmit}
-                  className="flex-1 bg-blue-gradient text-white"
-                >
-                  Enviar Solicitud
-                </Button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
+        {/* Space for any additional content if needed in the future */}
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Github } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Github, Target } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -7,21 +7,20 @@ const Footer = () => {
     { icon: <Facebook className="h-5 w-5" />, href: "#", label: "Facebook" },
     { icon: <Instagram className="h-5 w-5" />, href: "#", label: "Instagram" },
     { icon: <Linkedin className="h-5 w-5" />, href: "#", label: "LinkedIn" },
-    { icon: <Github className="h-5 w-5" />, href: "#", label: "GitHub" },
+    { icon: <Github className="h-5 w-5" />, href: "github.com/saviel-dev", label: "GitHub", target:"_Blank"},
   ];
 
   const navigationLinks = [
-    { label: "Características", href: "#" },
-    { label: "Precios", href: "#planes" },
-    { label: "Integraciones", href: "#" },
-    { label: "API", href: "#" },
+    { label: "Inicio", href: "#" },
+    { label: "Servicios", href: "#servicios" },
+    { label: "Contacto", href: "#contacto" },
   ];
 
   const companyLinks = [
     { label: "Acerca de", href: "#" },
-    { label: "Blog", href: "#" },
-    { label: "Carreras", href: "#" },
-    { label: "Noticias", href: "#" },
+    { label: "Blog", href: "/blog" },
+    { label: "Casos de éxito", href: "#" },
+    { label: "Alianzas", href: "#" },
   ];
 
   const supportLinks = [
@@ -63,13 +62,11 @@ const Footer = () => {
         {/* Main footer content */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center space-x-3 mb-6">
-            <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-lg">JH</span>
-            </div>
+            <img src="/favicon.svg" alt="JH Logo" className="w-10 h-10" />
             <span className="text-2xl font-bold">JH - Services</span>
           </div>
           <p className="text-gray-300 text-lg mb-6">
-            Tu casa de cambio de confianza
+            Transformando ideas en soluciones digitales excepcionales
           </p>
           <div className="flex justify-center space-x-4 mb-8">
             {socialLinks.map((social, index) => (

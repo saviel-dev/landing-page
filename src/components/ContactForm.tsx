@@ -1,10 +1,11 @@
 
 import { useState } from "react";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Loader2, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -14,7 +15,12 @@ const ContactForm = () => {
     subject: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const { toast } = useToast();
+  
+  // Formspree URL
+  const FORMSPREE_URL = "https://formspree.io/f/mrbkqqeg";
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -26,20 +32,49 @@ const ContactForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setLoading(true);
     
-    toast({
-      title: "¡Mensaje enviado!",
-      description: "Nos pondremos en contacto contigo pronto.",
-    });
-    
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: "",
+    // Enviar datos a Formspree
+    fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        subject: formData.subject,
+        message: formData.message
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        // Mostrar modal de éxito en lugar de toast
+        setShowSuccessModal(true);
+        
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+        });
+      } else {
+        throw new Error('Error al enviar el formulario');
+      }
+    })
+    .catch(() => {
+      toast({
+        title: "Error al enviar",
+        description: "Ha ocurrido un problema. Intenta nuevamente o contáctanos por WhatsApp.",
+        variant: "destructive"
+      });
+    })
+    .finally(() => {
+      setLoading(false);
     });
   };
 
@@ -211,13 +246,47 @@ const ContactForm = () => {
                 />
               </div>
 
-              <Button type="submit" className="w-full bg-blue-gradient text-white hover:opacity-90">
-                <Send className="h-4 w-4 mr-2" />
-                Enviar Mensaje
+              <Button 
+                type="submit" 
+                className="w-full bg-blue-gradient text-white hover:opacity-90"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Enviando...
+                  </>
+                ) : (
+                  <>
+                    <Send className="h-4 w-4 mr-2" />
+                    Enviar Mensaje
+                  </>
+                )}
               </Button>
             </form>
           </div>
         </div>
+
+        {/* Modal de Éxito */}
+        <Dialog open={showSuccessModal} onOpenChange={setShowSuccessModal}>
+          <DialogContent className="max-w-md">
+            <div className="text-center p-6">
+              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Check className="h-10 w-10 text-green-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">¡Mensaje Enviado con Éxito!</h2>
+              <p className="text-gray-600 mb-6">
+                Gracias por contactarnos. Nos pondremos en contacto contigo lo más pronto posible.
+              </p>
+              <Button 
+                onClick={() => setShowSuccessModal(false)}
+                className="bg-blue-gradient text-white hover:opacity-90"
+              >
+                Aceptar
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );

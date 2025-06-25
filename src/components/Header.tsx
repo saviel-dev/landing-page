@@ -15,7 +15,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed w-full top-0 z-50 bg-blue-900/20 backdrop-blur-md border-b border-blue-300/30">
+    <header className="fixed w-full top-0 z-50 bg-blue-900/80 backdrop-blur-md border-b border-blue-300/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -34,7 +34,7 @@ const Header = () => {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-white/90 hover:text-white transition-colors duration-200 font-medium"
+                className="text-white/90 hover:text-white transition-all duration-200 font-medium px-3 py-1.5 rounded-md hover:outline hover:outline-2 hover:outline-blue-300/60"
               >
                 {item.label}
               </a>
@@ -43,7 +43,15 @@ const Header = () => {
 
           {/* CTA Button - Desktop */}
           <div className="hidden md:block">
-            <Button className="bg-blue-gradient hover:opacity-90 text-white">
+            <Button 
+              className="bg-blue-gradient hover:opacity-90 text-white"
+              onClick={() => {
+                const planesSection = document.getElementById('planes');
+                if (planesSection) {
+                  planesSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
               Cotizar Proyecto
             </Button>
           </div>
@@ -69,14 +77,23 @@ const Header = () => {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="block px-3 py-2 text-white/90 hover:text-white transition-colors duration-200"
+                  className="block px-3 py-2 text-white/90 hover:text-white transition-all duration-200 rounded-md hover:outline hover:outline-2 hover:outline-blue-300/60"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
                 </a>
               ))}
               <div className="px-3 pt-4">
-                <Button className="w-full bg-blue-gradient text-white">
+                <Button 
+                  className="w-full bg-blue-gradient text-white"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    const planesSection = document.getElementById('planes');
+                    if (planesSection) {
+                      planesSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
                   Cotizar Proyecto
                 </Button>
               </div>

@@ -1,5 +1,5 @@
 
-import { Monitor, Smartphone, Globe, Settings, Palette, Search } from "lucide-react";
+import { Monitor, Laptop, Globe, Settings, BarChart, Search } from "lucide-react";
 
 const Services = () => {
   const services = [
@@ -9,9 +9,9 @@ const Services = () => {
       description: "Sitios web personalizados, responsivos y optimizados para conversión.",
     },
     {
-      icon: <Smartphone className="h-8 w-8" />,
-      title: "Aplicaciones Móviles",
-      description: "Apps nativas y híbridas para iOS y Android con diseño intuitivo.",
+      icon: <Laptop className="h-8 w-8" />,
+      title: "Aplicaciones de Computadora",
+      description: "Software personalizado para Windows y macOS con interfaces intuitivas y funcionalidades a medida.",
     },
     {
       icon: <Globe className="h-8 w-8" />,
@@ -24,15 +24,15 @@ const Services = () => {
       description: "Soporte técnico y actualizaciones continuas para tu sitio web.",
     },
     {
-      icon: <Palette className="h-8 w-8" />,
-      title: "Diseño UI/UX",
-      description: "Interfaces atractivas y experiencias de usuario excepcionales.",
+      icon: <BarChart className="h-8 w-8" />,
+      title: "Marketing Digital",
+      description: "Estrategias personalizadas para aumentar la visibilidad de tu marca y generar más clientes potenciales.",
     },
     {
       icon: <Search className="h-8 w-8" />,
-      title: "SEO Optimization",
-      description: "Optimización para motores de búsqueda y mejor posicionamiento.",
-    },
+      title: "Optimización SEO",
+      description: "Mejoramos el posicionamiento de tu sitio en buscadores para atraer tráfico orgánico de calidad.",
+    }
   ];
 
   return (
