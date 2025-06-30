@@ -61,9 +61,16 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
         {/* Main footer content */}
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center space-x-3 mb-6">
-            <img src="/favicon.svg" alt="JH Logo" className="w-10 h-10" />
-            <span className="text-2xl font-bold">JH - Services</span>
+          <div className="flex items-center justify-center space-x-4 mb-6">
+            <a href="#inicio" className="flex items-center">
+              <img 
+                src="/img/julio.png" 
+                alt="Julio Herrera" 
+                className="h-12 w-auto"
+                style={{ maxWidth: 'none' }}
+              />
+            </a>
+            <h2 className="text-2xl font-bold text-white">- Julio Herrera</h2>
           </div>
           <p className="text-gray-300 text-lg mb-6">
             Transformando ideas en soluciones digitales excepcionales

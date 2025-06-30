@@ -8,28 +8,28 @@ const Portfolio = () => {
 
   const projects = [
     {
-      title: "E-commerce Moda",
-      description: "Tienda online completa con carrito de compras y pasarelas de pago",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80",
-      tech: ["React", "Node.js", "Stripe"],
-      link: "#",
+      title: "Draculotto - Web de Predicciones",
+      description: "Plataforma de juegos de azar con sistema de predicciones en tiempo real",
+      image: "/img/proyectos/Web de predicciones draculotto.png",
+      tech: ["React", "Node.js", "WebSockets"],
+      link: "https://casino-will-draculotto.netlify.app/",
+      github: "https://github.com/saviel-dev/Draculotto-Tendencias",
+    },
+    {
+      title: "Mi Caserita",
+      description: "Sitio web para mercado local con catálogo de productos y pedidos en línea",
+      image: "/img/proyectos/mi caserita.png",
+      tech: ["Next.js", "MongoDB", "Stripe"],
+      link: "https://micaserita.com.pe/",
       github: "#",
     },
     {
-      title: "App Restaurante",
-      description: "Sistema de reservas y pedidos online para restaurante",
-      image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
-      tech: ["Vue.js", "Firebase", "PWA"],
-      link: "#",
-      github: "#",
-    },
-    {
-      title: "Portal Corporativo",
-      description: "Sitio web corporativo con gestión de contenidos",
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80",
-      tech: ["WordPress", "PHP", "MySQL"],
-      link: "#",
-      github: "#",
+      title: "Ferro Metales",
+      description: "Sitio web corporativo para empresa de materiales y soluciones metálicas",
+      image: "/img/proyectos/web de ferro metales.png",
+      tech: ["React", "Tailwind CSS", "Framer Motion"],
+      link: "https://github.com/username/ferro-metales",
+      github: "https://github.com/username/ferro-metales",
     },
     {
       title: "App Fitness",
@@ -90,14 +90,38 @@ const Portfolio = () => {
                   className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-blue-600/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                  <Button size="sm" variant="secondary">
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    Ver Demo
-                  </Button>
-                  <Button size="sm" variant="secondary">
-                    <Github className="h-4 w-4 mr-2" />
-                    Código
-                  </Button>
+                  {project.title !== "Ferro Metales" ? (
+                    <a 
+                      href={project.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md bg-white text-blue-700 hover:bg-blue-50"
+                    >
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      Ver Demo
+                    </a>
+                  ) : (
+                    <a 
+                      href={project.github} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md bg-white text-blue-700 hover:bg-blue-50"
+                    >
+                      <Github className="h-4 w-4 mr-2" />
+                      Ver Código
+                    </a>
+                  )}
+                  {project.github !== "#" && project.title !== "Ferro Metales" && (
+                    <a 
+                      href={project.github} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md bg-white text-blue-700 hover:bg-blue-50"
+                    >
+                      <Github className="h-4 w-4 mr-2" />
+                      Código
+                    </a>
+                  )}
                 </div>
               </div>
 
