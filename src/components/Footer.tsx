@@ -4,10 +4,10 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: <Facebook className="h-5 w-5" />, href: "#", label: "Facebook" },
-    { icon: <Instagram className="h-5 w-5" />, href: "#", label: "Instagram" },
-    { icon: <Linkedin className="h-5 w-5" />, href: "#", label: "LinkedIn" },
-    { icon: <Github className="h-5 w-5" />, href: "github.com/saviel-dev", label: "GitHub", target:"_Blank"},
+    { icon: <Facebook className="h-5 w-5" />, href: "https://www.facebook.com/profile.php?id=100074214648153", label: "Facebook", target: "_blank" },
+    { icon: <Instagram className="h-5 w-5" />, href: "https://www.instagram.com/julian_herrera.dev/", label: "Instagram", target: "_blank" },
+    { icon: <Linkedin className="h-5 w-5" />, href: "https://www.linkedin.com/in/saviel-julian-isculpi-herrera-102818346/", label: "LinkedIn", target: "_blank" },
+    { icon: <Github className="h-5 w-5" />, href: "https://github.com/saviel-dev", label: "GitHub", target: "_blank" },
   ];
 
   const navigationLinks = [
@@ -64,13 +64,13 @@ const Footer = () => {
           <div className="flex items-center justify-center space-x-4 mb-6">
             <a href="#inicio" className="flex items-center">
               <img 
-                src="/img/julio.png" 
-                alt="Julio Herrera" 
+                src="/lovable-uploads/logoSimple.png" 
+                alt="Julian Herrera Logo" 
                 className="h-12 w-auto"
                 style={{ maxWidth: 'none' }}
               />
             </a>
-            <h2 className="text-2xl font-bold text-white">- Julio Herrera</h2>
+            <h2 className="text-2xl font-bold text-white">Julian Herrera</h2>
           </div>
           <p className="text-gray-300 text-lg mb-6">
             Transformando ideas en soluciones digitales excepcionales
@@ -82,6 +82,8 @@ const Footer = () => {
                 href={social.href}
                 aria-label={social.label}
                 className="p-3 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors duration-200"
+                target={social.target}
+                rel="noopener noreferrer"
               >
                 {social.icon}
               </a>
@@ -150,10 +152,10 @@ const Footer = () => {
               © {currentYear} JH - Services. Todos los derechos reservados.
             </p>
             <div className="flex gap-6 text-sm">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="/privacidad" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 Política de Privacidad
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="/terminos" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 Términos de Servicio
               </a>
             </div>

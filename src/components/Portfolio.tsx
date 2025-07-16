@@ -32,28 +32,20 @@ const Portfolio = () => {
       github: "https://github.com/username/ferro-metales",
     },
     {
-      title: "App Fitness",
-      description: "Aplicación móvil para seguimiento de ejercicios y nutrición",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80",
-      tech: ["React Native", "MongoDB", "Express"],
+      title: "Landing para venta de juegos y streaming",
+      description: "Página de aterrizaje para impulsar la venta de juegos digitales y plataformas de streaming.",
+      image: "/img/proyectos/GameChange.png",
+      tech: ["HTML", "CSS", "JavaScript", "Tailwind CSS"],
       link: "#",
-      github: "#",
+      github: "https://github.com/saviel-dev/GameChange-web.git",
     },
     {
-      title: "Plataforma Educativa",
-      description: "LMS completo con cursos online y sistema de pagos",
-      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
-      tech: ["Angular", "Django", "PostgreSQL"],
+      title: "Gestión de cuentas por cobrar",
+      description: "App de escritorio para mejorar el módulo de cuentas por cobrar y gestionar facturas sin conexión.",
+      image: "/img/proyectos/cobrofacil.png",
+      tech: ["Python", "Tkinter", "Pandas"],
       link: "#",
-      github: "#",
-    },
-    {
-      title: "Dashboard Analytics",
-      description: "Panel de control con métricas en tiempo real",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
-      tech: ["React", "D3.js", "WebSocket"],
-      link: "#",
-      github: "#",
+      github: "https://github.com/saviel-dev/CobroFacil",
     },
   ];
 
@@ -76,7 +68,7 @@ const Portfolio = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-center place-items-center">
           {projects.map((project, index) => (
             <div
               key={index}
@@ -90,7 +82,7 @@ const Portfolio = () => {
                   className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-blue-600/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                  {project.title !== "Ferro Metales" ? (
+                  {project.link !== "#" && (project.title === "Draculotto - Web de Predicciones" || project.title === "Mi Caserita") && (
                     <a 
                       href={project.link} 
                       target="_blank" 
@@ -100,18 +92,21 @@ const Portfolio = () => {
                       <ExternalLink className="h-4 w-4 mr-2" />
                       Ver Demo
                     </a>
-                  ) : (
-                    <a 
-                      href={project.github} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md bg-white text-blue-700 hover:bg-blue-50"
-                    >
-                      <Github className="h-4 w-4 mr-2" />
-                      Ver Código
-                    </a>
                   )}
-                  {project.github !== "#" && project.title !== "Ferro Metales" && (
+                  {project.title !== "Ferro Metales" && (project.title === "Landing para venta de juegos y streaming" || project.title === "Gestión de cuentas por cobrar") ? null : (
+                    project.title === "Draculotto - Web de Predicciones" ? null : (
+                      <a 
+                        href={project.github} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md bg-white text-blue-700 hover:bg-blue-50"
+                      >
+                        <Github className="h-4 w-4 mr-2" />
+                        Ver Código
+                      </a>
+                    )
+                  )}
+                  {project.github !== "#" && project.title !== "Ferro Metales" && project.title !== "Draculotto - Web de Predicciones" && (
                     <a 
                       href={project.github} 
                       target="_blank" 
@@ -147,14 +142,7 @@ const Portfolio = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Button 
-            className="bg-blue-gradient text-white hover:opacity-90"
-            onClick={() => navigate('/projects')}
-          >
-            Ver Todos los Proyectos
-          </Button>
-        </div>
+
       </div>
     </section>
   );

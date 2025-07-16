@@ -23,7 +23,7 @@ const Index = () => {
             <ClientsCarousel />
           </section>
           <Portfolio />
-          <ContactForm />
+          <ContactForm id="contacto" />
         </Container>
       </main>
       <Footer />

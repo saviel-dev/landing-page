@@ -8,6 +8,7 @@ import Checkout from "./pages/Checkout";
 import AllProjects from "./pages/AllProjects";
 import Receipt from "./pages/Receipt";
 import Blog from "./pages/Blog";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,8 @@ const App = () => (
           <Route path="/projects" element={<AllProjects />} />
           <Route path="/receipt" element={<Receipt />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/privacidad" element={<NotFound />} />
+          <Route path="/terminos" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

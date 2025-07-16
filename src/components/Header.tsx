@@ -19,13 +19,14 @@ const Header = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 md:h-16">
           {/* Profile Image */}
-          <a href="#inicio" className="flex items-center">
+          <a href="#inicio" className="flex items-center space-x-3">
             <img 
-              src="/img/julio.png" 
-              alt="Julio Herrera" 
+              src="/lovable-uploads/logoSimple.png" 
+              alt="Julian Herrera Logo" 
               className="h-10 w-auto md:h-12"
               style={{ maxWidth: 'none' }}
             />
+            <span className="text-white text-lg md:text-xl font-bold tracking-tight">Julian Herrera</span>
           </a>
 
           {/* Desktop Navigation */}
@@ -46,9 +47,9 @@ const Header = () => {
             <Button 
               className="bg-blue-gradient hover:opacity-90 text-white"
               onClick={() => {
-                const clientesSection = document.getElementById('clientes');
-                if (clientesSection) {
-                  clientesSection.scrollIntoView({ behavior: 'smooth' });
+                const contactoSection = document.getElementById('contacto');
+                if (contactoSection) {
+                  contactoSection.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
             >
