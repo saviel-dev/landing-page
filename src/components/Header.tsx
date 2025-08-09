@@ -65,7 +65,7 @@ const Header = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-white hover:bg-white/10 h-10 w-10 flex items-center justify-center"
+              className="text-white hover:bg-white/10 h-12 w-12 flex items-center justify-center"
               aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -75,31 +75,29 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         <div className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${isMenuOpen ? 'max-h-96' : 'max-h-0'}`}>
-          <div className="px-4 py-3 space-y-2 bg-blue-900/95 backdrop-blur-md border-t border-blue-300/30">
+          <div className="px-4 py-3 space-y-2 bg-blue-500/90 backdrop-blur-md border-t border-blue-400/30 flex flex-col items-center">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="block px-4 py-3 text-base text-white/90 hover:text-white transition-all duration-200 rounded-lg hover:bg-white/10 active:bg-white/20"
+                className="w-full max-w-xs text-center px-4 py-3 text-base text-white/90 hover:text-white transition-all duration-200 rounded-lg hover:bg-white/10 active:bg-white/20"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.label}
               </a>
             ))}
-            <div className="pt-2 pb-1">
-              <Button 
-                className="w-full bg-blue-gradient text-white py-3 text-base font-medium"
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  const clientesSection = document.getElementById('clientes');
-                  if (clientesSection) {
-                    clientesSection.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-              >
-                Cotizar Proyecto
-              </Button>
-            </div>
+            <Button 
+              className="w-full max-w-xs bg-white text-blue-500 hover:bg-transparent hover:text-white hover:border-white border-2 border-transparent mt-2"
+              onClick={() => {
+                setIsMenuOpen(false);
+                const contactoSection = document.getElementById('contacto');
+                if (contactoSection) {
+                  contactoSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
+              Cotizar Proyecto
+            </Button>
           </div>
         </div>
       </div>

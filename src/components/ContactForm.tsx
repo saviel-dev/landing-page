@@ -86,8 +86,8 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contacto" className="py-20 bg-blue-gradient-light">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contacto" className="py-12 md:py-20 bg-blue-gradient-light overflow-x-hidden">
+      <div className="container mx-auto px-4 sm:px-4 md:px-6 lg:px-8">
         {/* Entrance Annotation */}
         <div className="text-center mb-16 animate-fade-in-up">
           <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
@@ -104,17 +104,17 @@ const ContactForm = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
           {/* Contact Info */}
           <div className="animate-slide-in-left">
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
+            <div className="bg-white p-5 sm:p-6 md:p-8 rounded-2xl shadow-lg">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">
                 Información de Contacto
               </h3>
               
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="p-3 bg-blue-100 rounded-lg">
+              <div className="space-y-5">
+                <div className="flex items-start sm:items-center gap-3 sm:gap-4">
+                  <div className="p-2 sm:p-3 bg-blue-100 rounded-lg flex-shrink-0">
                     <Mail className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
@@ -123,8 +123,8 @@ const ContactForm = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4">
-                  <div className="p-3 bg-blue-100 rounded-lg">
+                <div className="flex items-start sm:items-center gap-3 sm:gap-4">
+                  <div className="p-2 sm:p-3 bg-blue-100 rounded-lg flex-shrink-0">
                     <Phone className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
@@ -133,8 +133,8 @@ const ContactForm = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4">
-                  <div className="p-3 bg-blue-100 rounded-lg">
+                <div className="flex items-start sm:items-center gap-3 sm:gap-4">
+                  <div className="p-2 sm:p-3 bg-blue-100 rounded-lg flex-shrink-0">
                     <MapPin className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
@@ -144,7 +144,7 @@ const ContactForm = () => {
                 </div>
               </div>
 
-              <div className="mt-8 p-6 bg-blue-50 rounded-xl">
+              <div className="mt-8 p-5 sm:p-6 bg-blue-50 rounded-xl">
                 <h4 className="font-semibold text-gray-900 mb-2">
                   ¿Necesitas una cotización rápida?
                 </h4>
@@ -164,8 +164,8 @@ const ContactForm = () => {
 
           {/* Contact Form */}
           <div className="animate-slide-in-right">
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-2xl shadow-lg">
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
+            <form onSubmit={handleSubmit} className="bg-white p-5 sm:p-6 md:p-8 rounded-2xl shadow-lg">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                     Nombre completo *
@@ -198,7 +198,7 @@ const ContactForm = () => {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6">
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                     Teléfono
