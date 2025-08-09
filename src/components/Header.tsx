@@ -15,7 +15,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed w-full top-0 z-50 bg-blue-900/80 backdrop-blur-md border-b border-blue-300/30">
+    <header className="fixed w-full top-0 z-50 bg-blue-500/90 backdrop-blur-md border-b border-blue-400/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 md:h-16">
           {/* Profile Image */}
@@ -45,7 +45,9 @@ const Header = () => {
           {/* CTA Button - Desktop */}
           <div className="hidden md:block">
             <Button 
-              className="bg-blue-gradient hover:opacity-90 text-white"
+              className="bg-white text-blue-500 font-medium px-6 py-2 rounded-md border-2 border-transparent 
+              hover:bg-transparent hover:text-white hover:border-white hover:scale-105 
+              transform transition-all duration-300 ease-in-out shadow-sm hover:shadow-lg"
               onClick={() => {
                 const contactoSection = document.getElementById('contacto');
                 if (contactoSection) {
