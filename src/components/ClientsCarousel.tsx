@@ -1,110 +1,123 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import { MessageCircle, Users, ShoppingCart, Briefcase, Rocket, BarChart2, Code } from "lucide-react";
 
-const CLIENTS = [
-  { 
-    id: 1, 
-    name: 'Draculotto', 
-    logo: '/img/clientes/Draculotto.png',
-    description: 'Juegos de azar y entretenimiento'
-  },
-  { 
-    id: 2, 
-    name: 'Ferro Metales', 
-    logo: '/img/clientes/FerroMetales.png',
-    description: 'Materiales y soluciones metálicas'
-  },
-  { 
-    id: 3, 
-    name: 'Mi Emisora', 
-    logo: '/img/clientes/Mi emisora.png',
-    description: 'Tu conexión con la música'
-  },
-  { 
-    id: 4, 
-    name: 'Mi Caserita', 
-    logo: '/img/clientes/miCaserita.png',
-    description: 'Mercados y variedades'
-  },
-];
+const ClientsGrid = () => {
+  const clients = [
+    {
+      name: "Draculotto",
+      position: "Página web de predicciones de loterías",
+      testimonial: "Desarrollo de una plataforma web especializada en predicciones de loterías con interfaz intuitiva y resultados en tiempo real.",
+      icon: <MessageCircle className="h-8 w-8" />,
+      color: "blue",
+      image: "/images/placeholder-client1.jpg"
+    },
+    {
+      name: "Ferro Metales",
+      position: "Aplicación de gestión de inventario",
+      testimonial: "Solución de escritorio personalizada para el control de inventario y cálculo preciso de materiales metálicos.",
+      icon: <Briefcase className="h-8 w-8" />,
+      color: "purple",
+      image: "/images/placeholder-client2.jpg"
+    },
+    {
+      name: "Mi Emisora",
+      position: "Sistema de gestión radial",
+      testimonial: "Aplicación interna para optimizar procesos operativos y gestión de programación en emisora de radio.",
+      icon: <Users className="h-8 w-8" />,
+      color: "emerald",
+      image: "/images/placeholder-client3.jpg"
+    },
+    {
+      name: "Mi Caserita",
+      position: "E-commerce de supermercado",
+      testimonial: "Plataforma de comercio electrónico completa para la venta de productos de supermercado con carrito de compras y pasarela de pago.",
+      icon: <ShoppingCart className="h-8 w-8" />,
+      color: "amber",
+      image: "/images/placeholder-client4.jpg"
+    },
+    {
+      name: "Gorila Craft",
+      position: "Diseño de contenido digital",
+      testimonial: "Creación de material visual atractivo y reels para redes sociales que incrementaron significativamente el engagement.",
+      icon: <Rocket className="h-8 w-8" />,
+      color: "rose",
+      image: "/images/placeholder-client5.jpg"
+    },
+    {
+      name: "Belén",
+      position: "Herramienta de gráficos estadísticos",
+      testimonial: "Aplicación de escritorio para la generación de gráficos estadísticos avanzados con funciones de función afín.",
+      icon: <BarChart2 className="h-8 w-8" />,
+      color: "indigo",
+      image: "/images/placeholder-client6.jpg"
+    },
+    {
+      name: "Luisa",
+      position: "Asesoría y desarrollo de software",
+      testimonial: "Servicios integrales de consultoría, soporte técnico y desarrollo de software personalizado.",
+      icon: <Code className="h-8 w-8" />,
+      color: "pink",
+      image: "/images/placeholder-client7.jpg"
+    }
+  ];
 
-// Add styles to document head
-const useAnimationStyles = () => {
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-      .animate-fade-in-up {
-        animation: fadeInUp 0.6s ease-out forwards;
-      }
-      .animate-fade-in {
-        animation: fadeIn 0.8s ease-out forwards;
-      }
-    `;
-    document.head.appendChild(style);
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
-};
-
-const ClientsCarousel = () => {
-  const [isMounted, setIsMounted] = useState(false);
-  
-  // Initialize animations
-  useAnimationStyles();
-  
-  useEffect(() => {
-    setIsMounted(true);
-    return () => setIsMounted(false);
-  }, []);
-  
-  if (!isMounted) return null;
+  const colorClasses = {
+    blue: { bg: 'from-blue-50 to-blue-100', iconBg: 'from-blue-500 to-blue-600', border: 'border-blue-100' },
+    purple: { bg: 'from-purple-50 to-purple-100', iconBg: 'from-purple-500 to-purple-600', border: 'border-purple-100' },
+    emerald: { bg: 'from-emerald-50 to-emerald-100', iconBg: 'from-emerald-500 to-emerald-600', border: 'border-emerald-100' },
+    amber: { bg: 'from-amber-50 to-amber-100', iconBg: 'from-amber-500 to-amber-600', border: 'border-amber-100' },
+    rose: { bg: 'from-rose-50 to-rose-100', iconBg: 'from-rose-500 to-rose-600', border: 'border-rose-100' },
+    indigo: { bg: 'from-indigo-50 to-indigo-100', iconBg: 'from-indigo-500 to-indigo-600', border: 'border-indigo-100' },
+    pink: { bg: 'from-pink-50 to-pink-100', iconBg: 'from-pink-500 to-pink-600', border: 'border-pink-100' }
+  };
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-background to-muted/10">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70 mb-4">
-            Nuestros Clientes
+    <section id="clientes" className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <Users className="h-4 w-4" />
+            Testimonios de confianza
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Nuestros <span className="text-blue-600">Clientes</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            Empresas que han confiado en nuestros servicios y soluciones innovadoras
-          </p>
         </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
-          {CLIENTS.map((client, index) => (
-            <div 
-              key={client.id}
-              className="bg-card rounded-xl shadow-sm hover:shadow-md border border-border/50 flex flex-col items-center justify-center p-6 hover:bg-card/90 transition-all duration-300 transform hover:-translate-y-1 h-64"
-            >
-              <div className="w-32 h-20 mb-4 flex items-center justify-center">
-                <img 
-                  src={client.logo} 
-                  alt={client.name}
-                  className="max-h-full max-w-full object-contain"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22128%22%20height%3D%2280%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22128%22%20height%3D%2280%22%20fill%3D"%23f3f4f6"%2F%3E%3Ctext%20x%3D%2264%22%20y%3D%2245%22%20font-family%3D"Arial"%20font-size%3D"14"%20text-anchor%3D"middle"%20alignment-baseline%3D"middle"%20fill%3D"%236b7280"%3E{client.name}%3C%2Ftext%3E%3C%2Fsvg%3E';
-                  }}
-                />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {/* Client cards */}
+          {clients.map((client, index) => {
+            const colors = colorClasses[client.color as keyof typeof colorClasses];
+            return (
+              <div 
+                key={index} 
+                className={`bg-white rounded-xl shadow-sm p-6 border ${colors.border} hover:shadow-md transition-all duration-300 hover:-translate-y-1`}
+              >
+                {/* Icon with background */}
+                <div className={`w-14 h-14 rounded-xl mb-4 flex items-center justify-center bg-gradient-to-br ${colors.iconBg} text-white`}>
+                  {client.icon}
+                </div>
+                
+                {/* Title */}
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">{client.name}</h3>
+                
+                {/* Position */}
+                <p className="text-blue-600 text-sm font-medium mb-4">{client.position}</p>
+                
+                {/* Testimonial text */}
+                <p className="text-gray-600 leading-relaxed">
+                  {client.testimonial}
+                </p>
+                
+                {/* Decorative element */}
+                <div className={`mt-6 h-1 w-12 rounded-full bg-gradient-to-r ${colors.iconBg}`}></div>
               </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2 text-center">{client.name}</h3>
-              <p className="text-sm text-muted-foreground text-center mb-4">{client.description}</p>
-              <div className="w-12 h-1 bg-primary/20 rounded-full my-2"></div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
   );
 };
 
-export default ClientsCarousel;
+export default ClientsGrid;

@@ -222,10 +222,16 @@ const Checkout = () => {
                   </div>
                 </div>
                 
-                <div className="border-t pt-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-lg font-semibold">Total:</span>
-                    <span className="text-2xl font-bold text-blue-600">{planPrice}</span>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg">
+                    <span className="text-gray-600">Subtotal</span>
+                    <span className="font-medium text-gray-800">{planPrice}</span>
+                  </div>
+                  <div className="flex justify-between items-center bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-100">
+                    <span className="font-bold text-gray-800">Total a Pagar</span>
+                    <span className="text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+                      {planPrice}
+                    </span>
                   </div>
                 </div>
               </CardContent>

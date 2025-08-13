@@ -1,3 +1,4 @@
+import React from "react";
 import { Check, Star, Crown, Rocket, Building, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -149,57 +150,79 @@ const PricingPlans = () => {
         </div>
 
         {/* Centered cards container with larger desktop width */}
-        <div className="flex justify-center">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-12 max-w-7xl w-full mx-auto">
+        <div className="flex justify-center px-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl w-full mx-auto">
             {plans.map((plan, index) => (
               <div
                 key={index}
-                style={{width: 'calc(100% + 10px)', marginLeft: '-5px', animationDelay: `${index * 0.1}s`}}
-                className={`relative p-6 bg-white rounded-2xl shadow-lg transition-all duration-300 animate-fade-in-up cursor-pointer group hover:shadow-2xl hover:scale-105 hover:-translate-y-2 ${
-                  plan.popular ? 'ring-2 ring-blue-500 scale-105' : ''
+                style={{ animationDelay: `${index * 0.1}s` }}
+                className={`relative flex flex-col h-full bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg overflow-hidden transition-all duration-500 animate-fade-in-up group hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] ${
+                  plan.popular ? 'ring-2 ring-blue-500 scale-[1.02] bg-gradient-to-br from-blue-50 to-white' : 'hover:bg-gradient-to-br hover:from-white hover:to-blue-50'
                 }`}
-
               >
                 {plan.popular && (
-                  <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-gradient text-white">
-                    Más Popular
-                  </Badge>
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-blue-gradient"></div>
                 )}
 
-                <div className="text-center mb-6">
-                  <div className="text-blue-500 mb-3 flex justify-center group-hover:scale-110 transition-transform duration-300">
-                    {plan.icon}
+                <div className="p-8 text-center flex-1 flex flex-col">
+                  {/* Icono */}
+                  <div className="mb-6 flex justify-center">
+                    <div className="p-4 rounded-xl bg-gradient-to-br from-blue-100 to-blue-50 text-blue-600 group-hover:from-blue-200 group-hover:to-blue-100 transition-all duration-500 shadow-sm border border-blue-100 group-hover:shadow-md">
+                      {React.cloneElement(plan.icon, { className: 'h-8 w-8' })}
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">{plan.name}</h3>
-                  <p className="text-sm text-gray-600 mb-4">{plan.description}</p>
-                  <div className="mb-4">
-                    <span className="text-3xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
-                      <span className="hidden lg:inline">{plan.priceRange}</span>
-                      <span className="lg:hidden">{plan.shortPrice}</span>
-                    </span>
-                    <span className="text-gray-600 ml-2">/ {plan.period}</span>
+
+                  {/* Título y Precio */}
+                  <div className="mb-6">
+                    <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent mb-2">{plan.name}</h3>
+                    <div className="flex items-baseline justify-center gap-2 mb-2">
+                      <span className="text-3xl font-extrabold text-gray-900">
+                        {plan.priceRange === "Cotizar" ? plan.priceRange : (
+                          <>
+                            <span className="hidden lg:inline">{plan.priceRange}</span>
+                            <span className="lg:hidden">{plan.shortPrice}</span>
+                          </>
+                        )}
+                      </span>
+                      {plan.priceRange !== "Cotizar" && (
+                        <span className="text-gray-500 text-sm">/ {plan.period}</span>
+                      )}
+                    </div>
+                    <p className="text-gray-600 text-sm">{plan.description}</p>
                   </div>
+
+                  {/* Características */}
+                  <ul className="space-y-3 mb-8 flex-1">
+                    {plan.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-start gap-3 text-left">
+                        <Check className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm text-gray-600">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Botón */}
+                  <Button 
+                    onClick={() => handlePlanSelection(plan.id, plan.name, plan.priceRange)}
+                    size="lg"
+                    className={`w-full mt-auto transition-all duration-300 group-hover:shadow-md ${
+                      plan.popular 
+                        ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-700 hover:to-blue-600 hover:shadow-lg hover:-translate-y-0.5' 
+                        : 'bg-white text-gray-900 border border-gray-200 hover:border-blue-500 hover:bg-gradient-to-br hover:from-white hover:to-blue-50 hover:text-blue-600 hover:shadow-md'
+                    }`}
+                  >
+                    {plan.priceRange === "Cotizar" ? "Cotizar Proyecto" : "Elegir Plan"}
+                  </Button>
                 </div>
 
-                <ul className="space-y-3 mb-6">
-                  {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-start gap-3">
-                      <Check className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5 group-hover:text-green-600 transition-colors duration-300" />
-                      <span className="text-sm text-gray-600">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Button 
-                  onClick={() => handlePlanSelection(plan.id, plan.name, plan.priceRange)}
-                  className={`w-full transition-all duration-300 group-hover:scale-105 ${
-                    plan.popular 
-                      ? 'bg-blue-gradient text-white hover:opacity-90' 
-                      : 'bg-gray-100 text-gray-900 hover:bg-blue-gradient hover:text-white'
-                  }`}
-                >
-                  {plan.priceRange === "Cotizar" ? "Cotizar Proyecto" : "Elegir Plan"}
-                </Button>
+                {plan.popular && (
+                  <div className="bg-blue-50 py-2 text-center">
+                    <span className="text-sm font-medium text-blue-600 flex items-center justify-center gap-1">
+                      <Star className="h-4 w-4" />
+                      Más Popular
+                    </span>
+                  </div>
+                )}
               </div>
             ))}
           </div>

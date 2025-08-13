@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { AlignRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Header = () => {
@@ -65,10 +65,14 @@ const Header = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-white hover:bg-white/10 h-12 w-12 flex items-center justify-center"
+              className="text-white hover:bg-blue-600/80 h-14 w-14 flex items-center justify-center rounded-full transition-all duration-200 shadow-lg hover:shadow-blue-400/30"
               aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? (
+                <X className="h-7 w-7 transform transition-transform duration-200 hover:scale-110" />
+              ) : (
+                <AlignRight className="h-7 w-7 transform transition-transform duration-200 hover:scale-110" />
+              )}
             </Button>
           </div>
         </div>

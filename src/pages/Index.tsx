@@ -19,11 +19,9 @@ const Index = () => {
         <Container>
           <Hero />
           <Services />
-          <section id="clientes" className="py-12 md:py-16">
-            <ClientsCarousel />
-          </section>
+          <ClientsCarousel />
           <Portfolio />
-          <ContactForm id="contacto" />
+          <ContactForm />
         </Container>
       </main>
       <Footer />
